@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .signup-container {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-width: 450px;
+      margin: 18px auto;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .signup-container h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .signup-container label {
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .signup-container input {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .signup-container button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .signup-container button:hover {
+      background-color: #45a049;
+    }
+    .signup-container p {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .signup-container p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .signup-container p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="signup-container" >
+    <h1>Sign Up</h1>
+    <form th:action="@{/signup}" method="post" th:object="${user}">
+        <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+           th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+            error</p>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+            <label for="firstName" class="control-label">First name</label> <input
+                id="firstName" class="form-control" th:field="*{firstName}" />
+            <p class="error-message"
+               th:each="error: ${#fields.errors('firstName')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+            <label for="lastName" class="control-label">Last name</label> <input
+                id="lastName" class="form-control" th:field="*{lastName}" />
+            <p class="error-message"
+               th:each="error : ${#fields.errors('lastName')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+            <label for="email" class="control-label">E-mail</label> <input
+                id="email" class="form-control" th:field="*{email}" />
+            <p class="error-message"
+               th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+                error</p>
+        </div>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
+            <label for="confirmEmail" class="control-label">Confirm
+                e-mail</label> <input id="confirmEmail" class="form-control"
+                                      th:field="*{confirmEmail}" />
+            <p class="error-message"
+               th:each="error : ${#fields.errors('confirmEmail')}"
+               th:text="${error}">Validation error</p>
+        </div>
+
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+            <label for="password" class="control-label">Password</label> <input
+                id="password" class="form-control" type="password"
+                th:field="*{password}" />
+            <p class="error-message"
+               th:each="error : ${#fields.errors('password')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
+            <label for="confirmPassword" class="control-label">Confirm
+                password</label> <input id="confirmPassword" class="form-control"
+                                        type="password" th:field="*{confirmPassword}" />
+            <p class="error-message"
+               th:each="error : ${#fields.errors('confirmPassword')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
+            <input id="terms" type="checkbox" th:field="*{terms}" />
+            <label
+                class="control-label" for="terms"> I agree with the <a
+                href="#">terms and conditions</a> for Registration.
+        </label>
+            <p class="error-message"
+               th:each="error : ${#fields.errors('terms')}" th:text="${error}">Validation
+                error</p>
+        </div>
+        <button type="submit" class="btn btn-success">Sign Up</button>
+    </form>
+
+    <div class="form-group">
+        <span>Already have an account?  <a href="/" th:href="@{/login}">Login
+                       here</a></span>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-hz1eJgA5RqfyLh5Y49CUJoJ5k3WhEnTAPow8eQDk8Jp9AmdLbKPIGxJAT4HPfJC2"
+        crossorigin="anonymous"></script>
+</body>
+</html>

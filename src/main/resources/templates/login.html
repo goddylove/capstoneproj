@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .login-container {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 4px;
+    }
+    .login-container h1 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .login-container label {
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .login-container button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .login-container button:hover {
+      background-color: #0056b3;
+    }
+    .login-container p {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .login-container p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .login-container p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="login-container">
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Invalid username or password.</div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">You have been logged out.</div>
+        </div>
+        <label>Email:</label>
+        <input type="text" name="username" th:required="required">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" th:required="required">
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a th:href="@{/signup}">Sign Up</a></p>
+</div>
+</body>
+</html>
